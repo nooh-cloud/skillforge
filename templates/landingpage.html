@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillForge - Combined Landing Pages</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #111;
+            color: #fff;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .hero, .container, .course-category, .courses, .testimonial-container, .contact-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .hero-text, .text-content, .course-card, .testimonial-card, .contact-card {
+                max-width: 100%;
+                width: 100%;
+            }
+            .categories, .tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .category, .tab {
+                width: 45%;
+                margin: 10px 0;
+            }
+            .hero img, .image-container img {
+                width: 100%;
+                max-width: 400px;
+                margin-top: 20px;
+            }
+            .faq-container {
+                width: 90%;
+                margin: 20px auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 10px;
+            }
+            .navbar a {
+                margin: 5px 0;
+            }
+            .hero-text h1 {
+                font-size: 30px;
+            }
+            .hero-text p {
+                font-size: 14px;
+            }
+            .category, .tab {
+                width: 100%;
+            }
+            .course-category .category-box {
+                width: 100%;
+            }
+            .testimonial-card.wide {
+                width: 100%;
+            }
+            .contact-card {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 24px;
+            }
+            .hero-text p {
+                font-size: 12px;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            .faq-item {
+                padding: 10px;
+            }
+            .faq-question {
+                font-size: 14px;
+            }
+            .faq-answer {
+                font-size: 12px;
+            }
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #fc9e32;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            display: inline-block;
+            margin: 0 15px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li:hover,
+        .nav-links li.active {
+            color: purple;
+        }
+
+        .nav-links li::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: purple;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li:hover::after,
+        .nav-links li.active::after {
+            width: 100%;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: purple;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .footer-links li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #888888;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #007BFF;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #007BFF;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        /* Landing 1 Styles */
+        .btn {
+            background: #fbc531;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 40px;
+        }
+        .hero-text {
+            max-width: 50%;
+        }
+        .hero-text h1 {
+            font-size: 40px;
+        }
+        .highlight {
+            color: #ff00ff;
+        }
+        .hero-text p {
+            margin: 20px 0;
+            color: #aaa;
+        }
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .category-section {
+            padding: 40px;
+        }
+        .categories {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .category {
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+        }
+        .uiux { background: #00e1ff; }
+        .webdev { background: #fbc531; }
+        .marketing { background: #a100ff; }
+
+        /* Landing 2 Styles */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px;
+        }
+        .text-content {
+            max-width: 50%;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .course-category {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .category-box {
+            background: #333;
+            padding: 20px;
+            width: 45%;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .category-box img {
+            width: 50px;
+            margin-right: 15px;
+        }
+        .category-box h3 {
+            color: #fbc531;
+        }
+        .category-box p {
+            font-size: 0.9rem;
+        }
+        .image-container img {
+            max-width: 500px;
+            border-radius: 8px;
+        }
+
+        /* Landing 3 Styles */
+        .tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            background: #444;
+            color: #ccc;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background: orange;
+            color: #fff;
+        }
+        .courses {
+            display: flex;
+            gap: 20px;
+        }
+        .course-card {
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 30%;
+            text-align: center;
+        }
+        .course-card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .course-card h3 {
+            color: orange;
+            margin: 10px 0;
+        }
+        .course-card p {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* Landing 4 Styles */
+        .testimonials {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .title {
+            font-size: 24px;
+            background: white;
+            color: black;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+        .testimonial-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .testimonial-card {
+            background: white;
+            color: black;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            text-align: left;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        .testimonial-card.wide {
+            width: 400px;
+        }
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .social-icon {
+            width: 16px;
+            height: 16px;
+            margin-left: 5px;
+        }
+
+        /* Landing 5 Styles */
+        .contact-section {
+            padding: 20px;
+        }
+        .contact-section h1 {
+            font-size: 28px;
+            margin-top: 10px;
+        }
+        .contact-section p {
+            font-size: 16px;
+            color: #b5b5b5;
+            margin-bottom: 40px;
+        }
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .contact-card {
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 15px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        .contact-card img {
+            width: 30px;
+            margin-bottom: 10px;
+        }
+        .contact-card h3 {
+            margin: 10px 0 5px;
+            font-size: 18px;
+        }
+        .contact-card p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .contact-card a {
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Landing 6 Styles */
+        .faq-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #606060;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .faq-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .faq-item {
+            background: #747474;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .faq-item:hover {
+            background: #858585;
+        }
+        .faq-item img {
+            width: 25px;
+            margin-right: 10px;
+        }
+        .faq-question {
+            font-size: 16px;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+        .faq-answer {
+            display: none;
+            font-size: 14px;
+            color: #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-toggle {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo"><span>Skill</span>Forge</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Landing 1 -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Investing in Knowledge and <span class="highlight">Your Future</span></h1>
+            <p>Our e-learning programs have been developed to be a vehicle of delivering multimedia learning solutions for your business.</p>
+            <button class="btn">Enroll →</button>
+            <div class="stats">
+                <p><strong>50+</strong> Career Courses</p>
+                <p><strong>1M+</strong> Our Students</p>
+            </div>
+        </div>
+        <img src="student.png" alt="Student Image" width="300">
+    </section>
+    <section class="category-section">
+        <h2>Browse Top Essential Career Courses</h2>
+        <div class="categories">
+            <div class="category uiux">UI/UX</div>
+            <div class="category webdev">WEB DEVELOPMENT</div>
+            <div class="category marketing">DIGITAL MARKETING</div>
+        </div>
+    </section>
+
+    <!-- Landing 2 -->
+    <div class="container">
+        <div class="text-content">
+            <h1>Explore 4000+ Online Courses</h1>
+            <p>Master new skills at your own pace with courses from top institutions. Discover a wide range of subjects tailored to your interests. Enjoy free access to expert-led content anytime, anywhere.</p>
+        </div>
+        <div class="image-container">
+            <img src="students.jpg" alt="Students Learning">
+        </div>
+    </div>
+    <div class="course-category">
+        <div class="category-box">
+            <img src="icon1.png" alt="Sales">
+            <div>
+                <h3>Sales & Marketing</h3>
+                <p>Transform your sales strategies and boost performance with expert-led courses.</p>
+            </div>
+        </div>
+        <div class="category-box">
+            <img src="icon2.png" alt="Management">
+            <div>
+                <h3>Management</h3>
+                <p>Learn effective team leadership and management skills to excel in your career.</p>
+            </div>
+        </div>
+        <div class="category-box">
+            <img src="icon3.png" alt="IT">
+            <div>
+                <h3>IT Courses</h3>
+                <p>Gain hands-on experience with interactive lessons and real-world projects.</p>
+            </div>
+        </div>
+        <div class="category-box">
+            <img src="icon4.png" alt="Language">
+            <div>
+                <h3>Language Courses</h3>
+                <p>Master new languages and connect with cultures worldwide.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Landing 3 -->
+    <div class="container">
+        <h1>Excellent Courses with Renowned Mentors</h1>
+        <div class="tabs">
+            <div class="tab active">Popular Courses</div>
+            <div class="tab">Top Diploma</div>
+            <div class="tab">Top Certificates</div>
+        </div>
+        <div class="courses">
+            <div class="course-card">
+                <img src="it_course.jpg" alt="IT Courses">
+                <h3>IT Courses</h3>
+                <p><em>"Easy-to-Make, Powerful Website Design with Figma"</em></p>
+            </div>
+            <div class="course-card">
+                <img src="language_course.jpg" alt="Language Courses">
+                <h3>Language Courses</h3>
+                <p>"Master Any Language: Effective Communication Strategies Made Simple"</p>
+            </div>
+            <div class="course-card">
+                <img src="sales_marketing.jpg" alt="Sales and Marketing">
+                <h3>Sales and Marketing</h3>
+                <p>"How to get people interested in our new product"</p>
+            </div>
+        </div>
+    </div>
+
+<!-- Landing 4 -->
+<section class="testimonials">
+    <h2 class="title"><span>💬</span> Testimonials</h2>
+    <div class="testimonial-container">
+        <div class="testimonial-card">
+            <img src="user1.jpg" alt="User" class="profile-pic">
+            <h3>Ragip Diller</h3>
+            <p>"I've tried many platforms before, but this one stands out. The courses are engaging, and the content is updated with the latest industry trends. Thank you for the great experience!"</p>
+            <span class="close-btn">✖</span>
+        </div>
+        <div class="testimonial-card">
+            <img src="user2.jpg" alt="User" class="profile-pic">
+            <h3>Arda Güler <img src="instagram-icon.png" class="social-icon"></h3>
+            <p>"The user-friendly interface and high-quality content make this platform a standout. I gained practical knowledge that I could apply immediately to my work!"</p>
+        </div>
+        <div class="testimonial-card">
+            <img src="user3.jpg" alt="User" class="profile-pic">
+            <h3>Hikmet</h3>
+            <p>"A truly transformative experience! The attention to detail and support from the instructors were incredible. Highly recommended!"</p>
+            <span class="close-btn">✖</span>
+        </div>
+        <div class="testimonial-card wide">
+            <img src="user4.jpg" alt="User" class="profile-pic">
+            <h3>Maria Ancellotti <img src="instagram-icon.png" class="social-icon"></h3>
+            <p>"This platform exceeded my expectations! The courses are well-structured, and the instructors are truly knowledgeable. I feel more confident in my skills now than ever before!"</p>
+        </div>
+        <div class="testimonial-card">
+            <img src="user5.jpg" alt="User" class="profile-pic">
+            <h3>Guy Hawkins</h3>
+            <p>"This platform gave me the tools I needed to excel in my career. The certification courses were spot-on, and the resources provided were top-notch!"</p>
+            <span class="close-btn">✖</span>
+        </div>
+        <div class="testimonial-card">
+            <img src="user6.jpg" alt="User" class="profile-pic">
+            <h3>Jenny Wilson</h3>
+            <p>"Learning has never been this enjoyable! The courses are comprehensive yet easy to follow. I’ve already recommended it to all my friends!"</p>
+            <span class="close-btn">✖</span>
+        </div>
+    </div>
+</section>
+
+<!-- Landing 5 -->
+<div class="logo">Skill<span>Forge</span></div>
+<section class="contact-section">
+    <h1>Contact Our Friendly Team</h1>
+    <p>Let Us Know How Can We Help</p>
+    <div class="contact-container">
+        <div class="contact-card">
+            <img src="chat-icon.png" alt="Chat Icon">
+            <h3>Chat to Sales</h3>
+            <p>Speak to our friendly team.</p>
+            <a href="mailto:sales@skillforge.com">sales@skillforge.com</a>
+        </div>
+        <div class="contact-card">
+            <img src="support-icon.png" alt="Support Icon">
+            <h3>Chat for Support</h3>
+            <p>We're here to help.</p>
+            <a href="mailto:support@skillforge.com">support@skillforge.com</a>
+        </div>
+        <div class="contact-card">
+            <img src="location-icon.png" alt="Location Icon">
+            <h3>Visit Us</h3>
+            <p>Visit our office HQ.</p>
+            <a href="https://maps.google.com" target="_blank">View on Google Maps</a>
+        </div>
+        <div class="contact-card">
+            <img src="phone-icon.png" alt="Phone Icon">
+            <h3>Call Us</h3>
+            <p>Mon-Fri from 8am to 5pm.</p>
+            <a href="tel:+911000300369">+91 1000300369</a>
+        </div>
+    </div>
+</section>
+
+<!-- Landing 6 -->
+<div class="faq-container">
+    <div class="faq-title">Frequently Asked Questions</div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <img src="smiley-icon.png" alt="Icon"> Is there a free trial available?
+        </div>
+        <span class="faq-toggle">▼</span>
+    </div>
+    <div class="faq-answer">
+        Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free 30-minute onboarding call to get you up and running. 
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <img src="calendar-icon.png" alt="Icon"> Can I change my plan later?
+        </div>
+        <span class="faq-toggle">▼</span>
+    </div>
+    <div class="faq-answer">
+        Yes, you can upgrade or downgrade your plan anytime from your account settings.
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <img src="cancel-icon.png" alt="Icon"> What is your cancellation policy?
+        </div>
+        <span class="faq-toggle">▼</span>
+    </div>
+    <div class="faq-answer">
+        You can cancel your subscription anytime. No hidden charges.
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <img src="group-icon.png" alt="Icon"> Can other info be added to an invoice?
+        </div>
+        <span class="faq-toggle">▼</span>
+    </div>
+    <div class="faq-answer">
+        Yes, you can add tax details, business info, and more while generating an invoice.
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <img src="billing-icon.png" alt="Icon"> How does billing work?
+        </div>
+        <span class="faq-toggle">▼</span>
+    </div>
+    <div class="faq-answer">
+        We bill on a monthly basis. You will be charged automatically based on your plan.
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <img src="email-icon.png" alt="Icon"> How do I change my account email?
+        </div>
+        <span class="faq-toggle">▼</span>
+    </div>
+    <div class="faq-answer">
+        Go to account settings and update your email address.
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <img src="support-icon.png" alt="Icon"> How does support work?
+        </div>
+        <span class="faq-toggle">▼</span>
+    </div>
+    <div class="faq-answer">
+        We offer 24/7 live chat and email support to assist you.
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="logo"><span>Skill</span>Forge</div>
+    <p>“Empowering learners, one course at a time. Build skills, forge your future.”</p>
+    <ul class="footer-links">
+        <li><a href="#">Overview</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Privacy</a></li>
+    </ul>
+    <p class="copyright">© 2025 SkillForge. All rights reserved.</p>
+</footer>
+
+<script>
+    // FAQ Toggle Functionality
+    document.querySelectorAll(".faq-item").forEach((item) => {
+        item.addEventListener("click", () => {
+            item.classList.toggle("active");
+            let toggleIcon = item.querySelector(".faq-toggle");
+            toggleIcon.textContent = item.classList.contains("active") ? "▲" : "▼";
+        });
+    });
+</script>

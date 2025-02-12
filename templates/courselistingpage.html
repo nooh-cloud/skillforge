@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillForge - Course Listing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: linear-gradient(to bottom, #222, #555);
+            color: #fff;
+            text-align: center;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo span {
+            color: #fc9e32;
+        }
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .nav-links li {
+            display: inline-block;
+            margin: 0 15px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-links li:hover,
+        .nav-links li.active {
+            color: purple;
+        }
+        .nav-links li::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: purple;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        .nav-links li:hover::after,
+        .nav-links li.active::after {
+            width: 100%;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: purple;
+        }
+        .search-container {
+            margin: 20px 0;
+        }
+        .search-container input {
+            padding: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+        }
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+        .course-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .course-thumbnail {
+            width: 100%;
+            height: 120px;
+            background: #555;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .load-more {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: #8a2be2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .load-more:hover {
+            background: #6a1bb2;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .footer-links li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .footer-links a {
+            text-decoration: none;
+            color: #888888;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #007BFF;
+        }
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #007BFF;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+        .copyright {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+            }
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .search-container input {
+                width: 100%;
+            }
+            .course-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            .footer-links li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><span>Skill</span>Forge</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="search-container">
+        <input type="text" placeholder="Search Courses...">
+    </div>
+    <div class="course-grid">
+        <div class="course-card">
+            <div class="course-thumbnail"></div>
+            <p>Course Title</p>
+            <p>⭐⭐⭐⭐⭐ Rating</p>
+        </div>
+        <div class="course-card">
+            <div class="course-thumbnail"></div>
+            <p>Course Title</p>
+            <p>⭐⭐⭐⭐⭐ Rating</p>
+        </div>
+        <div class="course-card">
+            <div class="course-thumbnail"></div>
+            <p>Course Title</p>
+            <p>⭐⭐⭐⭐⭐ Rating</p>
+        </div>
+        <div class="course-card">
+            <div class="course-thumbnail"></div>
+            <p>Course Title</p>
+            <p>⭐⭐⭐⭐⭐ Rating</p>
+        </div>
+        <div class="course-card">
+            <div class="course-thumbnail"></div>
+            <p>Course Title</p>
+            <p>⭐⭐⭐⭐⭐ Rating</p>
+        </div>
+        <div class="course-card">
+            <div class="course-thumbnail"></div>
+            <p>Course Title</p>
+            <p>⭐⭐⭐⭐⭐ Rating</p>
+        </div>
+        <div class="course-card">
+            <div class="course-thumbnail"></div>
+            <p>Course Title</p>
+            <p>⭐⭐⭐⭐⭐ Rating</p>
+        </div>
+        <div class="course-card">
+            <div class="course-thumbnail"></div>
+            <p>Course Title</p>
+            <p>⭐⭐⭐⭐⭐ Rating</p>
+        </div>
+    </div>
+    <button class="load-more">Load More</button>
+    <footer>
+        <div class="footer-logo"><span>Skill</span>Forge</div>
+        <p>“Empowering learners, one course at a time. Build skills, forge your future.”</p>
+        <ul class="footer-links">
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy</a></li>
+        </ul>
+        <p class="copyright">© 2025 SkillForge. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillForge - Completed Courses</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1E1E1E, #848484);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #fc9e32;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links li {
+    display: inline-block;
+    margin: 0 15px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links li:hover,
+.nav-links li.active {
+    color: purple;
+}
+
+.nav-links li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: purple;
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-links li:hover::after,
+.nav-links li.active::after {
+    width: 100%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: purple;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* Heading */
+h2 {
+    font-size: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #333;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    background: #222;
+    color: white;
+    outline: none;
+}
+
+.search-bar button {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Course Card */
+.course-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: #000;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid #555;
+}
+
+.thumbnail {
+    width: 150px;
+    height: 80px;
+    background: #fff;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.details {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px 0;
+}
+
+.details h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.details .instructor,
+.details .rating {
+    font-size: 14px;
+    color: #bbb;
+}
+
+.completion {
+    text-align: center;
+    margin-right: 20px;
+    margin: 10px 0;
+}
+
+.completion p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.certificate .btn {
+    display: inline-block;
+    background: #ff007f;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #000000;
+    font-family: Arial, sans-serif;
+    margin-top: 30px;
+}
+
+footer .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.footer-links li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #888888;
+    font-size: 16px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #007BFF;
+}
+
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #007BFF;
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.footer-links a:hover::after {
+    width: 100%;
+}
+
+.copyright {
+    font-size: 14px;
+    color: #666;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .course-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .thumbnail {
+        width: 100%;
+        height: 150px;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .details {
+        width: 100%;
+    }
+
+    .completion {
+        text-align: left;
+        margin-right: 0;
+    }
+
+    .certificate .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        width: 100%;
+    }
+
+    .thumbnail {
+        height: 100px;
+    }
+
+    .details h3 {
+        font-size: 16px;
+    }
+
+    .details .instructor,
+    .details .rating {
+        font-size: 12px;
+    }
+
+    .completion p {
+        font-size: 12px;
+    }
+
+    .certificate .btn {
+        font-size: 12px;
+    }
+
+    .footer-links li {
+        display: block;
+        margin: 10px 0;
+    }
+}
+</style>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo"><span>Skill</span>Forge</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Completed Courses |</h2>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search Courses................">
+            <button>🔍</button>
+        </div>
+
+        <div class="course-card">
+            <div class="thumbnail">Course thumbnail</div>
+            <div class="details">
+                <h3>Course Title.......</h3>
+                <p class="instructor">Instructor name</p>
+                <p class="rating">⭐ ⭐ ⭐ ⭐ ⭐ Rating</p>
+            </div>
+            <div class="completion">
+                <p><strong>Completion date</strong></p>
+                <p>25/01/2027</p>
+            </div>
+            <div class="certificate">
+                <a href="#" class="btn">View Certificate</a>
+            </div>
+        </div>
+
+        <div class="course-card">
+            <div class="thumbnail">Course thumbnail</div>
+            <div class="details">
+                <h3>Course Title..........</h3>
+                <p class="instructor">Instructor name</p>
+                <p class="rating">⭐ ⭐ ⭐ ⭐ ⭐ Rating</p>
+            </div>
+            <div class="completion">
+                <p><strong>Completion date</strong></p>
+                <p>01/12/2027</p>
+            </div>
+            <div class="certificate">
+                <a href="#" class="btn">View Certificate</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo"><span>Skill</span>Forge</div>
+        <p>“Empowering learners, one course at a time. Build skills, forge your future.”</p>
+        <ul class="footer-links">
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy</a></li>
+        </ul>
+        <p class="copyright">© 2025 SkillForge. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

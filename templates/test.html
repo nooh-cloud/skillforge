@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Section</title>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4e4e4e;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #606060;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .faq-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* FAQ Item */
+        .faq-item {
+            background: #747474;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .faq-item:hover {
+            background: #858585;
+        }
+
+        .faq-item img {
+            width: 25px;
+            margin-right: 10px;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-answer {
+            display: none;
+            font-size: 14px;
+            color: #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-toggle {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="faq-container">
+        <div class="faq-title">Frequently Asked Questions</div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <img src="smiley-icon.png" alt="Icon"> Is there a free trial available?
+            </div>
+            <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+            Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free 30-minute onboarding call to get you up and running. 
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <img src="calendar-icon.png" alt="Icon"> Can I change my plan later?
+            </div>
+            <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+            Yes, you can upgrade or downgrade your plan anytime from your account settings.
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <img src="cancel-icon.png" alt="Icon"> What is your cancellation policy?
+            </div>
+            <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+            You can cancel your subscription anytime. No hidden charges.
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <img src="group-icon.png" alt="Icon"> Can other info be added to an invoice?
+            </div>
+            <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+            Yes, you can add tax details, business info, and more while generating an invoice.
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <img src="billing-icon.png" alt="Icon"> How does billing work?
+            </div>
+            <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+            We bill on a monthly basis. You will be charged automatically based on your plan.
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <img src="email-icon.png" alt="Icon"> How do I change my account email?
+            </div>
+            <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+            Go to account settings and update your email address.
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <img src="support-icon.png" alt="Icon"> How does support work?
+            </div>
+            <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+            We offer 24/7 live chat and email support to assist you.
+        </div>
+
+    </div>
+
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll(".faq-item").forEach((item) => {
+            item.addEventListener("click", () => {
+                item.classList.toggle("active");
+                let toggleIcon = item.querySelector(".faq-toggle");
+                toggleIcon.textContent = item.classList.contains("active") ? "▲" : "▼";
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillForge Payment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #fc9e32;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            display: inline-block;
+            margin: 0 15px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li:hover,
+        .nav-links li.active {
+            color: purple;
+        }
+
+        .nav-links li::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: purple;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li:hover::after,
+        .nav-links li.active::after {
+            width: 100%;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: purple;
+        }
+
+        .container {
+            display: flex;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            flex: 1;
+        }
+
+        .payment-form, .order-summary {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .brand span {
+            color: #fbc531;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input, select {
+            background: #333;
+            color: #fff;
+        }
+
+        .payment-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .payment-options button {
+            flex: 1;
+            padding: 10px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #777;
+            transition: border 0.3s ease;
+        }
+
+        .payment-options button:hover {
+            border: 2px solid purple;
+        }
+
+        .selected {
+            background: #8a2be2;
+            color: #fff;
+        }
+
+        .make-payment, .proceed {
+            background: #8a2be2;
+            color: #fff;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .make-payment:hover, .proceed:hover {
+            background: #6a1bb2;
+        }
+
+        .order-summary h2 {
+            color: #8a2be2;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .secure-payment {
+            color: green;
+            text-align: center;
+        }
+
+        .order-details {
+            margin-top: 10px;
+        }
+
+        .order-details p {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        hr {
+            border: 1px solid #444;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            margin-top: auto;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: #fc9e32;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .footer-links li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #888888;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #007BFF;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #007BFF;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .payment-form, .order-summary {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .order-summary h2 {
+                font-size: 24px;
+            }
+
+            .order-details p {
+                font-size: 14px;
+            }
+
+            .payment-options {
+                flex-direction: column;
+            }
+
+            .payment-options button {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .nav-links {
+                display: none; /* Hide nav links on smaller screens */
+            }
+
+            .navbar {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .payment-form, .order-summary {
+                padding: 15px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .order-summary h2 {
+                font-size: 20px;
+            }
+
+            .order-details p {
+                font-size: 12px;
+            }
+
+            input, select, button {
+                padding: 8px;
+            }
+
+            .footer-links li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><span>Skill</span>Forge</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="payment-form">
+            <h2 class="brand">Skill<span>Forge</span></h2>
+            <div class="customer-info">
+                <h3>Customer Information</h3>
+                <input type="text" placeholder="Your Name">
+                <input type="tel" placeholder="Your Phone Number">
+                <input type="email" placeholder="Your Email">
+                <select id="country">
+                    <option>Select Country</option>
+                </select>
+                <select id="state">
+                    <option>Select State</option>
+                </select>
+                <input type="text" placeholder="Your Zip Code">
+                <input type="text" placeholder="Your Address">
+            </div>
+            <div class="payment-method">
+                <h3>Payment Method</h3>
+                <div class="payment-options">
+                    <button class="selected">e-Transfer</button>
+                    <button>Online</button>
+                </div>
+                <select id="bank">
+                    <option>Select Your Bank</option>
+                </select>
+            </div>
+            <button class="make-payment">Make Payment</button>
+        </div>
+        <div class="order-summary">
+            <h3>Total Amount</h3>
+            <h2>$160.75</h2>
+            <p class="secure-payment">&#128274; Secure Payment</p>
+            <h4>Order Summary</h4>
+            <div class="order-details">
+                <p><span>Python Fullstack</span> <span>$149.00</span></p>
+                <p><span>Course details.....</span></p>
+                <hr>
+                <p><span>Subtotal:</span> <span>$149.00</span></p>
+                <p><span>Shipping:</span> <span>$11.76</span></p>
+                <h3>Total: $160.75</h3>
+            </div>
+            <button class="proceed">Proceed</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo"><span>Skill</span>Forge</div>
+        <p>“Empowering learners, one course at a time. Build skills, forge your future.”</p>
+        <ul class="footer-links">
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy</a></li>
+        </ul>
+        <p class="copyright">© 2025 SkillForge. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const countries = {
+            "United States": ["California", "Texas", "New York"],
+            "India": ["Delhi", "Maharashtra", "Karnataka"],
+            "Canada": ["Ontario", "Quebec", "British Columbia"]
+        };
+        const banks = {
+            "United States": ["Bank of America", "Wells Fargo"],
+            "India": ["HDFC Bank", "ICICI Bank"],
+            "Canada": ["RBC", "TD Bank"]
+        };
+        const countrySelect = document.getElementById("country");
+        const stateSelect = document.getElementById("state");
+        const bankSelect = document.getElementById("bank");
+        
+        for (let country in countries) {
+            let option = document.createElement("option");
+            option.value = country;
+            option.textContent = country;
+            countrySelect.appendChild(option);
+        }
+        
+        countrySelect.addEventListener("change", function() {
+            stateSelect.innerHTML = "";
+            bankSelect.innerHTML = "";
+            let selectedCountry = this.value;
+            countries[selectedCountry]?.forEach(state => {
+                let option = document.createElement("option");
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+            banks[selectedCountry]?.forEach(bank => {
+                let option = document.createElement("option");
+                option.textContent = bank;
+                bankSelect.appendChild(option);
+            });
+        });
+    </script>
+</body>
+</html>

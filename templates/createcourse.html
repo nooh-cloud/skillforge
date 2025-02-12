@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Course - SkillForge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1E1E1E, #848484);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background: black;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #F5AF5F;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+        
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        
+        .nav-links li {
+            display: inline-block;
+            margin: 0 15px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links li:hover,
+        .nav-links li.active {  /* Keep color on click */
+            color: purple;
+        }
+        
+        .nav-links li::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: purple;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links li:hover::after,
+        .nav-links li.active::after { /* Keep underline on click */
+            width: 100%;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {  /* Keep text color on click */
+            color: purple;
+        }
+        
+        .container {
+            padding: 20px;
+        }
+
+        .course-header {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .course-thumbnail {
+            background: white;
+            color: black;
+            padding: 40px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .course-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-info h2 {
+            margin-bottom: 5px;
+        }
+
+        .course-info p {
+            margin: 5px 0;
+        }
+
+        .publish-btn {
+            background: purple;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 120px;
+        }
+
+        .course-content {
+            margin-top: 30px;
+        }
+
+        .course-content h3 {
+            margin-bottom: 10px;
+        }
+
+        .syllabus-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .syllabus-list li {
+            margin: 5px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .footer-links li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #888888;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #007BFF;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #007BFF;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .course-header {
+                flex-direction: row;
+            }
+
+            .course-thumbnail {
+                padding: 60px 80px;
+            }
+
+            .publish-btn {
+                width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .course-thumbnail {
+                padding: 20px;
+            }
+
+            .footer-links li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        form input, form textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+
+        form input::placeholder, form textarea::placeholder {
+            color: #888;
+        }
+
+        form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .upload-thumbnail {
+            background: #444;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .upload-thumbnail input[type="file"] {
+            display: none;
+        }
+
+        .upload-thumbnail label {
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><span>Skill</span>Forge</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <form action="#" method="post">
+            <!-- Course Thumbnail Upload -->
+            <div class="upload-thumbnail">
+                <label for="thumbnail">Upload Course Thumbnail</label>
+                <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
+            </div>
+
+            <!-- Course Title -->
+            <input type="text" name="course-title" placeholder="Course Title" required>
+
+            <!-- Instructor Name -->
+            <input type="text" name="instructor" placeholder="Instructor Name" required>
+
+            <!-- Duration -->
+            <input type="text" name="duration" placeholder="Duration (e.g., 6 weeks)" required>
+
+            <!-- Category -->
+            <input type="text" name="category" placeholder="Category (e.g., Web Development)" required>
+
+            <!-- Course Description -->
+            <textarea name="description" placeholder="Course Description" required></textarea>
+
+            <!-- Syllabus -->
+            <textarea name="syllabus" placeholder="Syllabus (Enter each module on a new line)" required></textarea>
+
+            <!-- Publish Button -->
+            <button type="submit" class="publish-btn">Publish Now</button>
+        </form>
+    </div>
+
+    <footer>
+        <div class="logo"><span>Skill</span>Forge</div>
+        <p>“Empowering learners, one course at a time. Build skills, forge your future.”</p>
+        <ul class="footer-links">
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy</a></li>
+        </ul>
+        <p class="copyright">© 2025 SkillForge. All rights reserved.</p>
+    </footer>
+</body>
+</html>

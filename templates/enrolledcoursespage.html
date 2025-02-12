@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillForge - Enrolled Courses</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1E1E1E, #848484);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: black;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #fc9e32;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links li {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li:hover,
+        .nav-links li.active {
+            color: purple;
+        }
+
+        .nav-links li::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: purple;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li:hover::after,
+        .nav-links li.active::after {
+            width: 100%;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: purple;
+        }
+
+        /* Main container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        /* Heading */
+        h2 {
+            font-size: 20px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #333;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 5px;
+            border: none;
+            background: #222;
+            color: white;
+            outline: none;
+        }
+
+        .search-bar button {
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Course List */
+        .course-list {
+            background: #222;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Course Card */
+        .course-card {
+            display: flex;
+            align-items: center;
+            background: black;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #555;
+            flex-wrap: wrap;
+        }
+
+        .thumbnail {
+            width: 150px;
+            height: 80px;
+            background: white;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+
+        .details {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .details h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .details .instructor,
+        .details .rating {
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            width: 120px;
+            height: 25px;
+            background: #444;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: green;
+            width: 50%; /* Example progress */
+        }
+
+        .view-course a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .view-course a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-links li {
+            margin: 0 15px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #888888;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #007BFF;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #007BFF;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .course-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .thumbnail {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .progress-container {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .view-course {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+
+            .details h3 {
+                font-size: 16px;
+            }
+
+            .details .instructor,
+            .details .rating {
+                font-size: 12px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo"><span>Skill</span>Forge</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Enrolled Courses |</h2>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search Courses................">
+            <button>🔍</button>
+        </div>
+
+        <div class="course-list">
+            <div class="course-card">
+                <div class="thumbnail">Course thumbnail</div>
+                <div class="details">
+                    <h3>Course Title.......... []</h3>
+                    <p class="instructor">Instructor name</p>
+                    <p class="rating">⭐ ⭐ ⭐ ⭐ ⭐ Rating</p>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 70%;"></div>
+                </div>
+                <div class="view-course">
+                    <a href="#">view course</a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="thumbnail">Course thumbnail</div>
+                <div class="details">
+                    <h3>Course Title.......... []</h3>
+                    <p class="instructor">Instructor name</p>
+                    <p class="rating">⭐ ⭐ ⭐ ⭐ ⭐ Rating</p>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 40%;"></div>
+                </div>
+                <div class="view-course">
+                    <a href="#">view course</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo"><span>Skill</span>Forge</div>
+        <p>“Empowering learners, one course at a time. Build skills, forge your future.”</p>
+        <ul class="footer-links">
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy</a></li>
+        </ul>
+        <p class="copyright">© 2025 SkillForge. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
