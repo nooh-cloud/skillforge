@@ -18,5 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from myapp import views
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/',admin.site.urls),
+    path('signup/',views.signup,name='signup'),
+    path('forgot/',views.forgot_password,name='forgot_password'),
+    path('otp/',views.enter_otp,name='enter_otp'),
+    path('set/',views.set_password,name='set-password'),
+    path('done',views.done,name='done'),
+    path('land',views.landingread,name='landing'),
+
 ]

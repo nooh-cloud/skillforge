@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>LogIn</title>
     <style>
         body {
             background: linear-gradient(135deg, #1E1E1E, #848484);
@@ -142,12 +142,12 @@
             <h3 class="second">Forge</h3>
         </div>
         <div class="start-message">
-            <p class="sign">Sign in with Email</p>
+            <p class="sign">Log In with Email</p>
             <p class="message">"Access world-class courses to learn, grow,<br> 
                 and achieve your goals. Start your journey today."</p>
         </div>
         <div class="form">
-             <form method="post" action="{% url 'signup' %}">
+            <form method="post" action="{% url 'signup' %}">
                 {% csrf_token %} <!-- Add CSRF token for security -->
                 
                 <!-- Display form-level errors -->

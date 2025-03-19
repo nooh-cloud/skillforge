@@ -165,22 +165,30 @@
 
     <div class="container">
         <div class="icon">
-            <img src="/myproject/static/img'/Frame 162.png" alt="Icon"> <!-- Fix the image path -->
+            <img src="/myproject/static/img/Frame 162.png" alt="Icon">
         </div>
         <h2>Enter Your Code</h2>
-        <p style="margin-bottom: 25px;">We sent a code to sample@gmail.com</p>
+        <p style="margin-bottom: 25px;">We sent a code to {{ email }}</p>
 
-        <div class="otp-container">
-            <input type="text" maxlength="1" class="otp-input" oninput="moveToNext(this, 1)" onkeydown="handleBackspace(this, 0)" autocomplete="one-time-code">
-            <input type="text" maxlength="1" class="otp-input" oninput="moveToNext(this, 2)" onkeydown="handleBackspace(this, 1)" autocomplete="one-time-code">
-            <input type="text" maxlength="1" class="otp-input" oninput="moveToNext(this, 3)" onkeydown="handleBackspace(this, 2)" autocomplete="one-time-code">
-            <input type="text" maxlength="1" class="otp-input" oninput="moveToNext(this, 4)" onkeydown="handleBackspace(this, 3)" autocomplete="one-time-code">
-        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="otp-container">
+                <input type="text" name="otp1" maxlength="1" class="otp-input" oninput="moveToNext(this, 1)" onkeydown="handleBackspace(this, 0)" autocomplete="one-time-code">
+                <input type="text" name="otp2" maxlength="1" class="otp-input" oninput="moveToNext(this, 2)" onkeydown="handleBackspace(this, 1)" autocomplete="one-time-code">
+                <input type="text" name="otp3" maxlength="1" class="otp-input" oninput="moveToNext(this, 3)" onkeydown="handleBackspace(this, 2)" autocomplete="one-time-code">
+                <input type="text" name="otp4" maxlength="1" class="otp-input" oninput="moveToNext(this, 4)" onkeydown="handleBackspace(this, 3)" autocomplete="one-time-code">
+            </div>
 
-        <p class="resend">Didn’t receive the email? <a href="#">Click to resend.</a></p>
+            <p class="resend">Didn’t receive the email? <a href="#">Click to resend.</a></p>
 
-        <button onclick="submitOTP()">Verify</button>
+            <button type="submit">Verify</button>
+
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </form>
     </div>
+
 
     <script>
         function moveToNext(current, index) {
