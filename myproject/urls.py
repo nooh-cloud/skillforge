@@ -17,13 +17,27 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from myapp import views
+from django.contrib.auth import views as auth_views
+from myapp.views import CustomPasswordResetView
 urlpatterns = [
     path('admin/',admin.site.urls),
     path('signup/',views.signup,name='signup'),
-    path('forgot/',views.forgot_password,name='forgot_password'),
-    path('otp/',views.enter_otp,name='enter_otp'),
-    path('set/',views.set_password,name='set-password'),
-    path('done',views.done,name='done'),
-    path('land',views.landingread,name='landing'),
+    path('land/',views.landingread,name='landing'),
+    path('loginread',views.loginread,name='login'),
+    path('login/', views.user_login, name='login'), 
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
+    path('privacyread',views.privacyread,name='privacy'),
+    path('profileread',views.profileread,name='profile'),
+    path('courseread',views.courseread,name='course'),
+    path('profilecreate',views.profilecreate,name='profilecreate'),
+    path('enrolled',views.enrolled,name='enroll'),
+
+
+
 
 ]
+

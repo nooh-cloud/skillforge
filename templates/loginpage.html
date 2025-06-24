@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LogIn</title>
+    <title>Log in</title>
     <style>
         body {
             background: linear-gradient(135deg, #1E1E1E, #848484);
@@ -95,6 +95,21 @@
             text-decoration: underline;
         }
 
+        .forget {
+            width: 100%;
+            margin-bottom: 10px;
+            overflow: hidden; /* Clear floats */
+        }
+        
+        .forget a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+        
+        .forget a:hover {
+            text-decoration: underline;
+        }
+
         /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             .first, .second {
@@ -147,7 +162,7 @@
                 and achieve your goals. Start your journey today."</p>
         </div>
         <div class="form">
-            <form method="post" action="{% url 'signup' %}">
+            <form method="post" action="{% url 'login' %}">
                 {% csrf_token %} <!-- Add CSRF token for security -->
                 
                 <!-- Display form-level errors -->
@@ -157,26 +172,17 @@
                     </div>
                 {% endif %}
 
-                <!-- Email Field -->
-                {{ form.email }}
-                {% if form.email.errors %}
-                    <div class="errorlist">
-                        {{ form.email.errors }}
-                    </div>
-                {% endif %}
+                <!-- Username Field -->
+                <input type="text" name="username" id="id_username" placeholder="Email/Username" required>
 
                 <!-- Password Field -->
-                {{ form.password }}
-                {% if form.password.errors %}
-                    <div class="errorlist">
-                        {{ form.password.errors }}
-                    </div>
-                {% endif %}
+                <input type="password" name="password" id="id_password" placeholder="Password" required>
 
                 <div class="forget">
-                    <a href="{% url 'forgot_password' %}">Forgot password</a><br>
+                    <a href="{% url 'signup' %}" style="float: left;">Sign Up</a> <!-- Sign Up link on the left -->
+                    <a href="{% url 'password_reset' %}" style="float: right;">Forgot password</a> <!-- Forgot password link on the right -->
                 </div>
-                <button type="submit">Get Started</button>
+                <button type="submit">Log In</button>
             </form>
         </div>
     </div>

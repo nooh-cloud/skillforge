@@ -255,9 +255,9 @@
     <nav class="navbar">
         <div class="logo"><span>Skill</span>Forge</div>
         <ul class="nav-links">
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="#" class="active">Profile</a></li>
+            <li><a href="{% url 'landing'%}">Home</a></li>
+            <li><a href="{% url 'login'%}">Logout</a></li>
         </ul>
     </nav>
     <div class="container">
@@ -268,7 +268,7 @@
                 <a href="#" class="active">Overview</a>
                 <a href="#">Enrolled Courses</a>
                 <a href="#">Completed Courses</a>
-                <a href="#">Certificates</a>
+                <a href="#">Certificates</a> 
                 <a href="#">Achievements</a>
             </div>
         </div>

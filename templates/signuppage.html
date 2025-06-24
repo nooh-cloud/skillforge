@@ -95,6 +95,21 @@
             text-decoration: underline;
         }
 
+        .forget {
+            width: 100%;
+            margin-bottom: 10px;
+            overflow: hidden; /* Clear floats */
+        }
+        
+        .forget a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+        
+        .forget a:hover {
+            text-decoration: underline;
+        }
+
         /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             .first, .second {
@@ -142,7 +157,7 @@
             <h3 class="second">Forge</h3>
         </div>
         <div class="start-message">
-            <p class="sign">Sign in with Email</p>
+            <p class="sign">Sign Up with Email</p>
             <p class="message">"Access world-class courses to learn, grow,<br> 
                 and achieve your goals. Start your journey today."</p>
         </div>
@@ -174,7 +189,8 @@
                 {% endif %}
 
                 <div class="forget">
-                    <a href="{% url 'forgot_password' %}">Forgot password</a><br>
+                    <a href="{% url 'login' %}" style="float: left;">Log In</a> <!-- Log In link on the left -->
+                    <a href="{% url 'password_reset' %}" style="float: right;">Forgot password</a> <!-- Forgot password link on the right -->
                 </div>
                 <button type="submit">Get Started</button>
             </form>

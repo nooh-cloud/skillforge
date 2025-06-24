@@ -5,7 +5,10 @@ import random
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login,authenticate
 from .forms import *
+from django.contrib.auth.views import PasswordResetView
 # Create your views here.
 
 def signup(request):
@@ -91,3 +94,56 @@ def signup(request):
 
 def landingread(request):
     return render(request, 'landingpage.html' )
+
+def loginread(request):
+    return render(request, 'loginpage.html' )
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            # Authenticate the user
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                # Log the user in
+                login(request, user)
+                return redirect('landing')  # Redirect to the home page or dashboard
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'loginpage.html', {'form': form})
+
+
+
+from django.contrib.auth.views import PasswordResetView
+import logging
+
+logger = logging.getLogger(__name__)
+
+class CustomPasswordResetView(PasswordResetView):
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        logger.info(f"Password reset requested for email: {email}")
+        return super().form_valid(form)
+    
+
+
+def privacyread(request):
+    return render(request, 'privacypage.html' )
+
+def profileread(request):
+    return render(request, 'studentprofilepage.html' )
+
+
+def courseread(request):
+    return render(request, 'courselistingpage.html' )
+
+def profilecreate(request):
+    return render(request, 'studentprofilecreate.html' )
+
+def enrolled(request):
+    return render(request, 'enrolledcoursepage.html' )
